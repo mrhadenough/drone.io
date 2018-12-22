@@ -32,4 +32,3 @@ services:
      - postgres
     ports:
       - 127.0.0.1:{{ server_port }}:80
-      # - 127.0.0.1:{{ server_port }}:433
