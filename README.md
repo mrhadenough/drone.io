@@ -4,7 +4,7 @@
 
 - pipenv
 
-### Remote install
+### Install
 
 ```
 pipenv install
