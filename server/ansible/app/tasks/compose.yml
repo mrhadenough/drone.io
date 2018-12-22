@@ -1,0 +1,12 @@
+- name: Create {{ application_name }} folder
+  file: path="/www/{{ application_name }}" state=directory owner=root group=root
+
+- name: copy docker compose
+  template: src=docker-compose.yml dest="/www/{{ application_name }}/docker-compose.yml"
+
+- name: Run compose
+  docker_service:
+    project_name: "{{ application_name }}"
+    project_src: "/www/{{ application_name }}"
+    state: present
+    restarted: yes

@@ -1,0 +1,13 @@
+- stat: path=/swapfile
+  register: check_swap_file
+
+- include: swap.yml
+  when: check_swap_file.stat.exists == False
+
+- include: nginx.yml
+
+- include: docker.yml
+
+- include: compose.yml
+
+- include: letsencrypt.yml

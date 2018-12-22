@@ -1,0 +1,13 @@
+[server]
+root@127.0.0.1
+
+[server:vars]
+application_name=
+default_email_from=
+postgres_user=
+postgres_password=
+server_host=
+server_domain=
+server_port=
+drone_gitlab_client_id=
+drone_gitlab_client_secret=

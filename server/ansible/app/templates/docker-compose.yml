@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres:10.4-alpine
+    environment:
+      - POSTGRES_USER={{ postgres_user | default('postgres') }}
+      - POSTGRES_PASSWORD={{ postgres_password | default('postgres') }}
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  drone:
+    image: drone/drone:1.0.0-rc.1
+    depends_on:
+      - postgres
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /var/lib/drone:/data
+    environment:
+    - POSTGRES_USER={{ postgres_user | default('postgres') }}
+    - POSTGRES_PASSWORD={{ postgres_password | default('postgres') }}
+    - DRONE_GIT_ALWAYS_AUTH=false
+    - DRONE_GITLAB_SERVER=https://gitlab.com
+    - DRONE_RUNNER_CAPACITY=2
+    - DRONE_TLS_AUTOCERT=false
+    - DRONE_SERVER_PROTO=https
+    - DRONE_GITLAB_CLIENT_ID={{ drone_gitlab_client_id }}
+    - DRONE_GITLAB_CLIENT_SECRET={{ drone_gitlab_client_secret }}
+    - DRONE_SERVER_HOST={{ server_domain }}
+    restart: always
+    links:
+     - postgres
+    ports:
+      - 127.0.0.1:{{ server_port }}:80
+      # - 127.0.0.1:{{ server_port }}:433

@@ -1,0 +1,34 @@
+- name: ensure repository key is installed
+  apt_key:
+    id: "58118E89F3A912897C070ADBF76221572C52609D"
+    keyserver: "hkp://p80.pool.sks-keyservers.net:80"
+    state: present
+
+- name: Add Docker repository and update apt cache
+  apt_repository:
+    repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+    mode: '644'
+    update_cache: yes
+    state: present
+
+- name: install libraries
+  # package: ['docker-engine', 'docker-compose', 'python-passlib']
+  # apt: package={{ item }} update_cache=yes
+  apt:
+    update_cache: yes
+    package:
+    - docker-engine
+    - docker-compose
+    - python-passlib
+  # with_items:
+  #   - docker-engine
+  #   - docker-compose
+  #   - python-passlib
+
+
+- name: add user mod
+  become_user: sudo
+  command: usermod -aG docker root
+
+
+- service: name=docker state=restarted
