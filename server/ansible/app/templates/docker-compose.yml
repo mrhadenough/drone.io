@@ -29,7 +29,8 @@ services:
     - DRONE_SERVER_HOST={{ server_domain }}
     - DRONE_DATABASE_DRIVER=postgres
     - DRONE_DATABASE_DATASOURCE=postgres://{{ postgres_user }}:{{ postgres_password }}@postgres:5432/postgres?sslmode=disable
-
+    env_file:
+     - .env
     restart: always
     links:
      - postgres
