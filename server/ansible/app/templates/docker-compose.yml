@@ -26,6 +26,9 @@ services:
     - DRONE_SERVER_PROTO=https
     - DRONE_GITLAB_CLIENT_ID={{ drone_gitlab_client_id }}
     - DRONE_GITLAB_CLIENT_SECRET={{ drone_gitlab_client_secret }}
+    - DRONE_GITHUB_SERVER=https://github.com
+    - DRONE_GITHUB_CLIENT_ID={{ drone_github_client_id }}
+    - DRONE_GITHUB_CLIENT_SECRET={{ drone_github_client_secret }}
     - DRONE_SERVER_HOST={{ server_domain }}
     - DRONE_DATABASE_DRIVER=postgres
     - DRONE_DATABASE_DATASOURCE=postgres://{{ postgres_user }}:{{ postgres_password }}@postgres:5432/postgres?sslmode=disable
